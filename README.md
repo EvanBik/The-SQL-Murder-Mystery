@@ -12,17 +12,25 @@ A crime has taken place and the detective needs your help. The detective gave yo
 
 * Read description from the police.
 ```sql
-SELECT description FROM crime_scene_report WHERE city='SQL City' AND type='murder' AND date=20180115;
+SELECT description 
+FROM crime_scene_report 
+WHERE city='SQL City' 
+AND type='murder' 
+AND date=20180115;
 ```
 Output
 ```
-Security footage shows that there were 2 witnesses. The first witness lives at the last house on "Northwestern Dr". 
-The second witness, named Annabel, lives somewhere on "Franklin Ave".
+Security footage shows that there were 2 witnesses. The first witness lives at the last house 
+on "Northwestern Dr". The second witness, named Annabel, lives somewhere on "Franklin Ave".
 ```
 ----------
 * Find 1st witness (assume last house is the highest address_number).
 ```sql
-SELECT id, name, address_number FROM person WHERE address_street_name='Northwestern Dr' ORDER BY 3 DESC LIMIT 1;
+SELECT id, name, address_number 
+FROM person 
+WHERE address_street_name='Northwestern Dr' 
+ORDER BY 3 DESC 
+LIMIT 1;
 ```
 Output
 ```
@@ -32,7 +40,10 @@ id	  name            address_number
 ---------
 * Find 2nd witness.
 ```sql
-SELECT id, name FROM person WHERE address_street_name='Franklin Ave' AND name LIKE 'Annabel%';
+SELECT id, name 
+FROM person 
+WHERE address_street_name='Franklin Ave' 
+AND name LIKE 'Annabel%';
 ```
 Output
 ```
@@ -42,16 +53,20 @@ id	  name
 --------
 * Read the transcipts of the witnesses' interviews with the police.
 ```sql
-SELECT p.name, i.transcript FROM interview i INNER JOIN person p ON i.person_id=p.id WHERE person_id IN (14887,16371);
+SELECT p.name, i.transcript 
+FROM interview i 
+INNER JOIN person p 
+ON i.person_id=p.id 
+WHERE person_id IN (14887,16371);
 ```
 Output
 ```
 name		  transcript
-Morty Schapiro	  I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. The membership number 
-                  on the bag started with "48Z". Only gold members have those bags. The man got into a car with a plate
-                  that included "H42W".
-Annabel Miller	  I saw the murder happen, and I recognized the killer from my gym when I was working out last week on 
-                  January the 9th.
+Morty Schapiro	  I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. 
+                  The membership number on the bag started with "48Z". Only gold members have 
+                  those bags. The man got into a car with a plate that included "H42W".
+Annabel Miller	  I saw the murder happen, and I recognized the killer from my gym when I was 
+                  working out last week on January the 9th.
 ```
 -----------
 * Use Morty's report and find the potential murderer(s).
@@ -88,7 +103,9 @@ than 2 queries. Use this same INSERT statement with your new suspect to check yo
 ----------
 * Read the interview transcript of the murderer to find out more.
 ```sql
-SELECT transcript FROM interview where person_id = 67318;
+SELECT transcript 
+FROM interview 
+WHERE person_id = 67318;
 ```
 Output
 ```
@@ -100,7 +117,8 @@ Symphony Concert 3 times in December 2017.
 ----------
 * Use this information to determine the real villain behind this crime.
 ```sql
-SELECT p.name FROM person p 
+SELECT p.name 
+FROM person p 
 INNER JOIN drivers_license d
 ON p.license_id=d.id
 INNER JOIN facebook_event_checkin f
